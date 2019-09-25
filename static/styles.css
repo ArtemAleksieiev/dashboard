@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+
+body,td,th,p{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #333;
+	line-height: 1.5;
+}
+body {
+	background-color: #fdfdfd;
+	margin: 0;
+	position:relative;
+}
+ul, li {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #333;
+	box-sizing: content-box;
+}
+a {
+	color: orange;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: #3397db;
+	text-decoration: none;
+}
+h1, h3, h4, h5, h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 0 20px;
+	padding-left: 20px;
+}
+h2 {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  margin: 0px;
+	font-size: 14pt;
+}
+article, aside, canvas, details, figcaption, figure, header, hgroup, menu, nav, section {
+	display: block;
+}
+header {
+	margin-top: 100px;
+}
+#space {
+	height: 100px;
+}
+#footer {
+  background-color: #444;
+  color: #aaa;
+  font-size: 8pt;
+  letter-spacing: 1px;
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+	height:30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.inside #footer {
+  bottom: 0;
+  position: absolute;
+  width: 50%;
+}
+.login-btn {
+	display: inline-block;
+	float: right;
+  text-align:right;
+	margin: 0;
+	padding-right: 20px;
+	padding-top: 10px;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+.button {
+  line-height: 30px;
+  padding: 0 30px;
+  background: #004a80;
+  color: #fff;
+  display: inline-block;
+  font-family: roboto;
+  text-decoration: none;
+  font-size: 18px;
+}
+.button:hover,
+.button:visited {
+  background: #006cba;
+  color: #fff;
+}
+#top, form { text-align: center; }
+textarea { width: 150px; height: 30px; }
+div.post { border: 1px solid #999;
+					 padding: 10px 10px;
+					 margin: 10px 20%%; }
+hr.postbound { width: 50%%; }
+td, th {border: 1px solid #ddd; padding: 8px;}
+th {padding-top: 12px; padding-bottom: 12px;text-align: left; background-color: #4CAF50; color: white;}
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+#data {margin-left: auto;margin-right: auto; margin-top:80px;}
+#table {border-collapse: collapse; width: 760px;}
+#table_craft {border-collapse: collapse; width: 1000px;}
+#table_salary {border-collapse: collapse; width: 850px;}
+.canvas {
+   position: relative;
+	 width: 800px;
+}
+.canvas::after {
+	content: "";
+	background: url(brewasis.jpg);
+	opacity: 0.3;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+	z-index: -1;
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<!--
+  Copyleft 2019 Link Swanson //swanson.link/
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{{ app_description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>{{ app_name }}</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='img/android-desktop.png') }}">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="{{ app_name }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='img/ios-desktop.png') }}">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/touch/ms-touch-icon-144x144-precomposed.png') }}">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/material.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    <div class="fbd-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="fbd-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">{{ app_name }}</span>
+          <div class="mdl-layout-spacer"></div>
+            <!-- Right aligned menu below button -->
+            <button id="fbd-menu-lower-right"
+                    class="mdl-button mdl-js-button mdl-button--icon">
+              <i class="material-icons">account_circle</i>
+            </button>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="fbd-menu-lower-right">
+              <li class="mdl-menu__item">My Account</li>
+              <li class="mdl-menu__item">Edit Profile</li>
+              <li disabled class="mdl-menu__item">Log In</li>
+              <li class="mdl-menu__item">Log Out</li>
+            </ul>
+        </div>
+      </header>
+      <div class="fbd-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="fbd-drawer-header">
+          <a href="/" class="mdl-color-text--cyan">
+          <i class="material-icons md-48" role="presentation">{{ app_icon }}</i>
+          </a>
+          <div class="app-title"><a href="/" class="mdl-color-text--white">{{ app_name }}</a></div>
+        </header>
+        <nav class="fbd-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href="/"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assessment</i>Visualizations</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">code</i>Code and Data</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">library_books</i>Documentation</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">fiber_new</i>Updates</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">info</i>About</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>People</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
+          <div class="mdl-layout-spacer"></div>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-grid fbd-content">
+          <div class="fbd-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
+            {{ script|safe }}
+          </div>
+          <div class="fbd-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+            <div class="fbd-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
+              <div class="mdl-card__supporting-text">
+                <h3><strong>Send parameters to Bokeh server</strong></h3>
+                  <p>This HTML form sends URL parameters to Flask, which passes them to Bokeh, which uses them to rebuild the plot.</p>
+                  <!-- @TODO, do this form the Flask way: http://exploreflask.com/en/latest/forms.html -->
+                    <form id="bokeh-params" action="/" method="get">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" name="title" type="text" id="plot-title" value="{{ plot_title }}">
+                        <label class="mdl-textfield__label" for="plot-title">Plot Title...</label>
+                      </div>
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <select class="mdl-textfield__input" id="dataset" name="dataset">
+                        {% for k, v in datasets.items(): %}
+		                      {% if k == current_dataset %}
+			                      <option selected value="{{ k }}">{{ v }}</option>
+		                      {% else %}
+			                      <option value="{{ k }}">{{ v }}</option>
+		                      {% endif %}
+	                      {% endfor %}
+                        </select>
+                        <label class="mdl-textfield__label" for="dataset">Choose Dataset</label>
+                      </div>
+                      <p>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="celcius">
+                          <input type="radio" id="celcius" class="mdl-radio__button" name="unit_type" value="Celcius" {% if unit_type == 'Celcius' %}checked{% endif %}>
+                          <span class="mdl-radio__label">Celcius</span>
+                        </label>
+                        <br />
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="farenheight">
+                          <input type="radio" id="farenheight" class="mdl-radio__button" name="unit_type" value="Farenheight" {% if unit_type == 'Farenheight' %}checked{% endif %}>
+                          <span class="mdl-radio__label">Farenheight</span>
+                        </label>
+
+                      </p>
+                      <p>
+                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="themetoggle">
+                          <input type="checkbox" name="theme" value="dark" id="themetoggle" class="mdl-switch__input" {% if theme == 'dark' %}checked{% endif %}>
+                          <span class="mdl-switch__label">Dark Theme</span>
+                        </label>
+                      </p>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                  <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white" value="Rebuild Plot">
+                </form>
+                <div class="mdl-layout-spacer"></div>
+              </div>
+            </div>
+            <div class="fbd-separator mdl-cell--1-col"></div>
+            <div class="fbd-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+              <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+                <h2 class="mdl-card__title-text">Bokeh in Flask</h2>
+              </div>
+              <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                 <p>The <a href="https://bokeh.pydata.org/en/latest/" target="_blank">Bokeh</a> plot runs on a <a href="https://bokeh.pydata.org/en/latest/docs/user_guide/server.html" target="_blank">Bokeh server</a> embedded in <a href="http://flask.pocoo.org/" target="_blank">Flask</a> served to the browser via <a href="https://gunicorn.org/" target="_blank">Gunicorn</a>.</p>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a target="_blank" href="https://bokeh.pydata.org/en/latest/docs/user_guide/server.html#embedding-bokeh-server-as-a-library" class="mdl-button mdl-js-button mdl-js-ripple-effect">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/lib/material.min.js') }}"></script>
+  </body>
+</html>
