@@ -225,7 +225,7 @@ def bkapp_page():
 
 
     script = server_document(
-      'brewasisdash.herokuapp.com:%d/bkapp' % port,
+      '0.0.0.0:%d/bkapp' % port,
       arguments=dict(
       plot_title = plot_title,
       dataset = datasets.get(current_dataset),
@@ -262,7 +262,7 @@ def states_get():
 def bk_worker():
     asyncio.set_event_loop(asyncio.new_event_loop())
 
-    bokeh_tornado = BokehTornado({'/bkapp': bkapp}, extra_websocket_origins=["brewasisdash.herokuapp.com"])
+    bokeh_tornado = BokehTornado({'/bkapp': bkapp}, extra_websocket_origins=["localhost:8000"])
     bokeh_http = HTTPServer(bokeh_tornado)
     bokeh_http.add_sockets(sockets)
 
