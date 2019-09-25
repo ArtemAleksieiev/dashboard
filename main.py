@@ -225,7 +225,7 @@ def bkapp_page():
 
 
     script = server_document(
-      'http://brewasisdash.herokuapp.com:%d/bkapp' % port,
+      '0.0.0.0:%d/bkapp' % port,
       arguments=dict(
       plot_title = plot_title,
       dataset = datasets.get(current_dataset),
