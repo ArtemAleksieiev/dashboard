@@ -193,7 +193,7 @@ bkapp = Application(FunctionHandler(modify_doc))
 
 # This is so that if this app is run using something like "gunicorn -w 4" then
 # each process will listen on its own port
-sockets, port = bind_sockets("brewasisdash.herokuapp.com", 0)
+sockets, port = bind_sockets("0.0.0.0", 0)
 
 @app.route('/', methods=['GET'])
 def bkapp_page():
@@ -225,7 +225,7 @@ def bkapp_page():
 
 
     script = server_document(
-      'brewasisdash.herokuapp.com:%d/bkapp' % port,
+      '0.0.0.0:%d/bkapp' % port,
       arguments=dict(
       plot_title = plot_title,
       dataset = datasets.get(current_dataset),
