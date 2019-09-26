@@ -178,7 +178,7 @@ def modify_doc(doc):
 
     def update_plot(attr, old, new):
         yr = slider.value
-        hover = HoverTool(tooltips = [ ('State','@state'),('brew','@%d' %yr + " bbls")], toggleable=False)
+        hover = HoverTool(tooltips = [ ('State','@state'),('brew','@%d' %yr +'bbls')], toggleable=False)
         plot.add_tools(hover)
         plot.title.text = 'State Craft Beer Sales, %d' %yr
         plot.patches('xs','ys', source = geosource, fill_color = {'field' : str(yr), 'transform' : color_mapper}, line_color = 'white', line_width = 0.15, fill_alpha = 1)
@@ -193,7 +193,7 @@ bkapp = Application(FunctionHandler(modify_doc))
 
 # This is so that if this app is run using something like "gunicorn -w 4" then
 # each process will listen on its own port
-sockets, port = bind_sockets("0.0.0.0", 0)
+sockets, port = bind_sockets("127.0.0.1", 0)
 
 @app.route('/', methods=['GET'])
 def bkapp_page():
@@ -225,7 +225,7 @@ def bkapp_page():
 
 
     script = server_document(
-      '0.0.0.0:%d/bkapp' % port,
+      'http://127.0.0.1:%d/bkapp' % port,
       arguments=dict(
       plot_title = plot_title,
       dataset = datasets.get(current_dataset),
@@ -262,7 +262,7 @@ def states_get():
 def bk_worker():
     asyncio.set_event_loop(asyncio.new_event_loop())
 
-    bokeh_tornado = BokehTornado({'/bkapp': bkapp}, extra_websocket_origins=["brewasisdash.herokuapp.com"])
+    bokeh_tornado = BokehTornado({'/bkapp': bkapp}, extra_websocket_origins=["127.0.0.1:8000"])
     bokeh_http = HTTPServer(bokeh_tornado)
     bokeh_http.add_sockets(sockets)
 
